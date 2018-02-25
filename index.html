@@ -20,9 +20,11 @@
     <!-- FONTAWESOME STYLE CSS -->
     <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
       <!-- VEGAS STYLE CSS -->
-    <link href="assets/scripts/vegas/jquery.vegas.min.css" rel="stylesheet" />
+    <link href="assets/plugins/vegas/jquery.vegas.min.css" rel="stylesheet" />
     <!-- jQuery -->
     <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.9/angular.min.js"></script>
+    <script src="gallery/galleryFiles.js"></script>
     <!-- CUSTOM STYLE CSS -->
     <link href="assets/css/style.css" rel="stylesheet" />
     <!-- GOOGLE FONT -->
@@ -100,37 +102,42 @@
                 </div>
 
             </div>
-            <div class="row text-center g-pad-bottom">
+            <div class="row text-center g-pad-bottom" style="text-align: left">
               
                     <div class="col-md-4 col-sm-4 col-xs-12">
-                        <div class="alert alert-danger">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                             Praesent suscipit sem vel ipsum elementum venenatis. 
-                            </div>
+
                         <div class="team-member">
-                            <img src="assets/img/team/1.png" class="img-circle"    alt="">
-                            <h3><strong>ART DIRECTOR</strong></h3>
+                            <img src="images/yinbiao.jpg" class="img-circle" alt="">
+                            <h3><strong>殷彪</strong></h3>
+                        </div>
+
+                        <div class="alert alert-danger">
+                            殷彪 1959年出生于中国黑龙江亚布力,生活在一个偏僻的小山村. 从小酷爱音乐. 但由于条件限制,没能从事音乐专业.<br>
+                            1977年高中毕业后自学提琴制作. 后经人介绍,师从哈尔滨乐器厂张学良老师,学习提琴制作.
+                            后又经张老师介绍, 师从中央音乐学院郑权老师.<br>
+                            制作的提琴,销往世界各地,深受客户认可.<br>
+                            2004年 因教会需要 来到杭州,参与教会小提琴基础演奏教学.
                         </div>
                     </div>
                    <div class="col-md-4 col-sm-4 col-xs-12">
-                         <div class="alert alert-warning">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                             Praesent suscipit sem vel ipsum elementum venenatis. 
-                            </div>
+
                         <div class="team-member">
-                            <img src="assets/img/team/4.png" class="img-circle"   alt="">
-                            <h3><strong>SUPPORT MANAGER </strong></h3>
+                            <img src="images/yinbin.jpg" class="img-circle"   alt="">
+                            <h3><strong>殷斌</strong></h3>
                         </div>
+                       <div class="alert alert-warning">
+                           殷斌，生于1968年。1989跟兄长殷彪学习提琴制作。1993在中央音乐学院提琴研究中心学习提琴制作，1994年开始独立制作，并成立自己的工作室，目前在上海有工作室，主要从事提琴的制作和修复。地址是上海市汾阳路九弄17号楼404，电话13401355887，邮箱yinbinviolin@163.com
+                       </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12">
-                        <div class="alert alert-info">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                             Praesent suscipit sem vel ipsum elementum venenatis. 
-                            </div>
                         <div class="team-member">
                             
                             <img src="images/yinjie.jpg" class="img-circle"    alt="">
                             <h3><strong>殷杰</strong></h3>
+                        </div>
+                        <div class="alert alert-info">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Praesent suscipit sem vel ipsum elementum venenatis.
                         </div>
                     </div>
                   
@@ -222,32 +229,32 @@
                 <h2><span>相册</span></h2>
                 <p>活动,工作,作品等</p>
                 <div id="container">
-                    <div id="main1">
+                    <div id="main1" ng-app="galleryApp" ng-controller="galleryCtrl">
                         <ul id="tiles">
                             <!-- These are our grid blocks -->
                             <li>
-                                <a href="images/IMAG0018.jpg" rel="lightbox" class="cboxElement">
-                                    <img src="images/IMAG0018.jpg" width="200" height="158">
+                                <a href="gallery/IMAG0018.jpg" rel="lightbox" class="cboxElement">
+                                    <img src="gallery/IMAG0018.jpg" width="200" height="158">
                                 </a>
                             </li>
                             <li>
-                                <a href="images/IMAG0038.jpg" rel="lightbox" class="cboxElement">
-                                    <img src="images/IMAG0038.jpg" width="200" height="300">
+                                <a href="gallery/IMAG0038.jpg" rel="lightbox" class="cboxElement">
+                                    <img src="gallery/IMAG0038.jpg" width="200" height="300">
                                 </a>
                             </li>
                             <li>
-                                <a href="images/IMAG0034.jpg" rel="lightbox" class="cboxElement">
-                                    <img src="images/IMAG0034.jpg" width="200" height="158">
+                                <a href="gallery/IMAG0034.jpg" rel="lightbox" class="cboxElement">
+                                    <img src="gallery/IMAG0034.jpg" width="200" height="158">
                                 </a>
                             </li>
                             <li>
-                                <a href="images/IMAG0036.jpg" rel="lightbox" class="cboxElement">
-                                    <img src="images/IMAG0036.jpg" width="200" height="158">
+                                <a href="gallery/IMAG0036.jpg" rel="lightbox" class="cboxElement">
+                                    <img src="gallery/IMAG0036.jpg" width="200" height="158">
                                 </a>
                             </li>
                             <li>
-                                <a href="images/IMAG0046.jpg" rel="lightbox" class="cboxElement">
-                                    <img src="images/IMAG0046.jpg" width="200" height="300">
+                                <a href="gallery/IMAG0046.jpg" rel="lightbox" class="cboxElement">
+                                    <img src="gallery/IMAG0046.jpg" width="200" height="300">
                                 </a>
                             </li>
                             <li>
@@ -348,6 +355,11 @@
                             <li>
                                 <a href="images/pic10.jpg" rel="lightbox" class="cboxElement">
                                     <img src="images/pic10.jpg" width="200" height="193">
+                                </a>
+                            </li>
+                            <li  ng-repeat="photo in galleryFiles" on-finish-render="galleryFinish()">
+                                <a href="gallery/{{photo}}" rel="lightbox" class="cboxElement">
+                                    <img ng-src="gallery/{{photo}}" width="200" height="158">
                                 </a>
                             </li>
                         </ul>
@@ -494,6 +506,57 @@
     <script src="assets/plugins/jquery.easing.min.js"></script>
     <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
+
+
+     <script>
+         var imagesLoaded = function(element){
+             console.log("function imagesLoaded");
+                     // Prepare layout options.
+                     var options = {
+                         autoResize: true, // This will auto-update the layout when the browser window is resized.
+                         container: $('#main1'), // Optional, used for some extra CSS styling
+                         offset: 2, // Optional, the distance between grid items
+                         itemWidth:200 // Optional, the width of a grid item
+                     };
+
+                     // Get a reference to your grid items.
+                     var handler = $('#tiles li');
+
+                     // Call the layout function.
+                     $(handler).wookmark(options);
+
+                     // Init lightbox
+                     $('a', handler).colorbox({
+                         rel: 'lightbox'
+                     });
+         };
+         var galleryApp = angular.module('galleryApp', []);
+         galleryApp.controller('galleryCtrl', function($scope) {
+             $scope.galleryFiles = galleryFiles;
+             $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+                 console.log("galleryFinish");
+                 imagesLoaded();
+             });
+         });
+         galleryApp.directive('onFinishRender',['$timeout', '$parse', function ($timeout, $parse) {
+             return {
+                 restrict: 'A',
+                 link: function (scope, element, attrs) {
+                     if (scope.$last === true) {
+                         $timeout(function () {
+                             scope.$emit('ngRepeatFinished'); //事件通知
+
+                         });
+                     }
+                 }
+             }
+         }]);
+
+     </script>
+     <!-- Once the page is loaded, initalize the plug-in. -->
+     <script type="text/javascript">
+
+     </script>
 
 </body>
 </html>
