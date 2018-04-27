@@ -3,44 +3,71 @@
 <head>
     <meta charset="UTF-8">
 
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.css" rel="stylesheet"/>
     <script type="text/javascript" src="assets/js/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/angular.js/1.6.9/angular.min.js"></script>
     <title>Title</title>
 </head>
 <body>
-<table class="table">
-    <caption>报单统计</caption>
-    <thead>
-    <tr>
-        <th>产品</th>
-        <th>付款日期</th>
-        <th>状态</th></tr>
-    </thead>
-    <tbody>
-    <tr class="active">
-        <td>产品1</td>
-        <td>23/11/2013</td>
-        <td>待发货</td></tr>
-    <tr class="success">
-        <td>产品2</td>
-        <td>10/11/2013</td>
-        <td>发货中</td></tr>
-    <tr class="warning">
-        <td>产品3</td>
-        <td>20/10/2013</td>
-        <td>待确认</td></tr>
-    <tr class="danger">
-        <td>产品4</td>
-        <td>20/10/2013</td>
-        <td>已退货</td></tr>
-    </tbody>
-</table>
-</body>
-<script>
+<div>
 
-    $.post("https://l8650tv3.qcloud.la/weapp/guozhen/get",null,function(result){
-        alert(JSON.stringify(result));
+
+    <table class="table table-striped" ng-app="guozhenApp" ng-controller="guozhenCtrl">
+        <div class="page-header">
+            <h1>报单统计
+                <small>用户:周平</small>
+            </h1>
+        </div>
+
+        <thead>
+        <tr>
+            <th rowspan="2">卡号</th>
+            <th rowspan="2">姓名</th>
+            <th colspan="3">业绩</th>
+        </tr>
+        <tr>
+            <th>2018-04</th>
+            <th>2018-03</th>
+            <th>2018-02</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="info in infoList">
+            <td>{{info.no}}</td>
+            <td>{{info.name}}</td>
+            <td>{{info.money['2018-04']}}</td>
+            <td>{{info.money['2018-03']}}</td>
+            <td>{{info.money['2018-02']}}</td>
+        </tr>
+        <!--<tr class="success">-->
+        <!--<td>产品2</td>-->
+        <!--<td>10/11/2013</td>-->
+        <!--<td>发货中</td></tr>-->
+        <!--<tr class="warning">-->
+        <!--<td>产品3</td>-->
+        <!--<td>20/10/2013</td>-->
+        <!--<td>待确认</td></tr>-->
+        <!--<tr class="danger">-->
+        <!--<td>产品4</td>-->
+        <!--<td>20/10/2013</td>-->
+        <!--<td>已退货</td></tr>-->
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-success" onclick="alert('功能暂未开通')">添加卡号</button>
+</div>
+</body>
+
+<script>
+    var guozhenApp = angular.module('guozhenApp', []);
+    guozhenApp.controller('guozhenCtrl', function ($scope, $timeout) {
+        $scope.infoList = [];
+        $.post("https://l8650tv3.qcloud.la/weapp/guozhen/get", null, function (result) {
+            $timeout(function () {
+                //alert(JSON.stringify(result));
+                $scope.infoList = result;
+            }, 0);
+        });
     });
+
 </script>
 </html>
