@@ -27,18 +27,18 @@
             <th rowspan="2"></th>
         </tr>
         <tr>
-            <th>2018-04</th>
-            <th>2018-03</th>
-            <th>2018-02</th>
+            <th ng-repeat="month in last3Months">
+                {{month}}
+            </th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="info in infoList">
             <td>{{info.no}}</td>
             <td>{{info.name}}</td>
-            <td>{{info.money['2018-04']}}</td>
-            <td>{{info.money['2018-03']}}</td>
-            <td>{{info.money['2018-02']}}</td>
+            <td>{{info.money[last3Months[0]]}}</td>
+            <td>{{info.money[last3Months[1]]}}</td>
+            <td>{{info.money[last3Months[2]]}}</td>
             <td><span class="glyphicon glyphicon-trash" aria-hidden="true" ng-click="delCard(info)" style="font-size:3em;"></span></td>
         </tr>
         <!--<tr class="success">-->
@@ -110,6 +110,9 @@
         var year_2 = month_1 - 1 >= 0 ? year_1 : year_1 - 1;
         monthList.push(year_2 + "-" + addPreZero(month_2 + 1));
         return monthList;
+    }
+    function addPreZero(num) {
+        return ('0' + num).slice(-2);
     }
 
 
