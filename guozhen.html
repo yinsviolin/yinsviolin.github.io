@@ -63,7 +63,8 @@
     var guozhenApp = angular.module('guozhenApp', []);
     guozhenApp.controller('guozhenCtrl', function ($scope, $timeout) {
         $scope.infoList = [{"no":"数据加载中...."}];
-        $.post("https://l8650tv3.qcloud.la/weapp/guozhen/get", null, function (result) {
+        $scope.last3Months = getLast3Months();
+        $.post("https://740670558.e5cm.xyz/weapp/guozhen/get", null, function (result) {
             $timeout(function () {
                 //alert(JSON.stringify(result));
                 $scope.infoList = result;
@@ -72,7 +73,7 @@
 
         $scope.delCard = function(song) {
             if(confirm("确定删除卡号 "+song.no+" 吗?")){
-                $.post("https://l8650tv3.qcloud.la/weapp/guozhen/delCard", {"id":song.id}, function (result) {
+                $.post("https://740670558.e5cm.xyz/weapp/guozhen/delCard", {"id":song.id}, function (result) {
                     if(result){
                         location.reload();
                     }else{
@@ -86,7 +87,7 @@
     function addCard() {
         var cardNo=prompt("请输入卡号");
         if(cardNo){
-            $.post("https://l8650tv3.qcloud.la/weapp/guozhen/addCard", {"no":cardNo}, function (result) {
+            $.post("https://740670558.e5cm.xyz/weapp/guozhen/addCard", {"no":cardNo}, function (result) {
                 if(result) {
                     location.reload();
                 }else{
@@ -94,6 +95,21 @@
                 }
             });
         }
+    }
+
+    function getLast3Months() {
+        var monthList = [];
+        var date = new Date;
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        monthList.push(year + "-" + addPreZero(month + 1));
+        var month_1 = month - 1 >= 0 ? month - 1 : 11;
+        var year_1 = month - 1 >= 0 ? year : year - 1;
+        monthList.push(year_1 + "-" + addPreZero(month_1 + 1));
+        var month_2 = month_1 - 1 >= 0 ? month_1 - 1 : 11;
+        var year_2 = month_1 - 1 >= 0 ? year_1 : year_1 - 1;
+        monthList.push(year_2 + "-" + addPreZero(month_2 + 1));
+        return monthList;
     }
 
 
