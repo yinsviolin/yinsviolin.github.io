@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link href="assets/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.9/angular.min.js"></script>
+    <title>国珍报单统计</title>
+</head>
+<body style="font-size: 3em;">
+<div>
+
+
+    <table class="table table-striped" ng-app="guozhenApp" ng-controller="guozhenCtrl">
+        <div class="page-header">
+            <h1>报单统计
+                <small>用户:周平</small>
+            </h1>
+        </div>
+
+        <thead>
+        <tr>
+            <th rowspan="2">卡号</th>
+            <th rowspan="2">姓名</th>
+            <th colspan="3">业绩</th>
+            <th rowspan="2"></th>
+        </tr>
+        <tr>
+            <th ng-repeat="month in last3Months">
+                {{month}}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="info in infoList">
+            <td>{{info.no}}</td>
+            <td>{{info.name}}</td>
+            <td>{{info.money[last3Months[0]]}}</td>
+            <td>{{info.money[last3Months[1]]}}</td>
+            <td>{{info.money[last3Months[2]]}}</td>
+            <td><span class="glyphicon glyphicon-trash" aria-hidden="true" ng-click="delCard(info)" style="font-size:3em;"></span></td>
+        </tr>
+        <!--<tr class="success">-->
+        <!--<td>产品2</td>-->
+        <!--<td>10/11/2013</td>-->
+        <!--<td>发货中</td></tr>-->
+        <!--<tr class="warning">-->
+        <!--<td>产品3</td>-->
+        <!--<td>20/10/2013</td>-->
+        <!--<td>待确认</td></tr>-->
+        <!--<tr class="danger">-->
+        <!--<td>产品4</td>-->
+        <!--<td>20/10/2013</td>-->
+        <!--<td>已退货</td></tr>-->
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-success btn-lg" onclick="addCard()" style="font-size: 2em;width:50%;height:2em">添加卡号</button>
+</div>
+</body>
+
+<script>
+    var guozhenApp = angular.module('guozhenApp', []);
+    guozhenApp.controller('guozhenCtrl', function ($scope, $timeout) {
+        $scope.infoList = [{"no":"数据加载中...."}];
+        $scope.last3Months = getLast3Months();
+        $.post("https://740670558.e5cm.xyz/weapp/guozhen/get", null, function (result) {
+            $timeout(function () {
+                //alert(JSON.stringify(result));
+                $scope.infoList = result;
+            }, 0);
+        });
+
+        $scope.delCard = function(song) {
+            if(confirm("确定删除卡号 "+song.no+" 吗?")){
+                $.post("https://740670558.e5cm.xyz/weapp/guozhen/delCard", {"id":song.id}, function (result) {
+                    if(result){
+                        location.reload();
+                    }else{
+                        alert("操作失败");
+                    }
+                });
+            }
+        }
+    });
+
+    function addCard() {
+        var cardNo=prompt("请输入卡号");
+        if(cardNo){
+            $.post("https://740670558.e5cm.xyz/weapp/guozhen/addCard", {"no":cardNo}, function (result) {
+                if(result) {
+                    location.reload();
+                }else{
+                    alert("操作失败");
+                }
+            });
+        }
+    }
+
+    function getLast3Months() {
+        var monthList = [];
+        var date = new Date;
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        monthList.push(year + "-" + addPreZero(month + 1));
+        var month_1 = month - 1 >= 0 ? month - 1 : 11;
+        var year_1 = month - 1 >= 0 ? year : year - 1;
+        monthList.push(year_1 + "-" + addPreZero(month_1 + 1));
+        var month_2 = month_1 - 1 >= 0 ? month_1 - 1 : 11;
+        var year_2 = month_1 - 1 >= 0 ? year_1 : year_1 - 1;
+        monthList.push(year_2 + "-" + addPreZero(month_2 + 1));
+        return monthList;
+    }
+    function addPreZero(num) {
+        return ('0' + num).slice(-2);
+    }
+
+
+</script>
+</html>
