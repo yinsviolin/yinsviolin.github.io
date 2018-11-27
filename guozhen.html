@@ -9,10 +9,10 @@
     <title>国珍报单统计</title>
 </head>
 <body style="font-size: 3em;">
-<div>
+<div ng-app="guozhenApp" ng-controller="guozhenCtrl">
 
 
-    <table class="table table-striped" ng-app="guozhenApp" ng-controller="guozhenCtrl">
+    <table class="table table-striped" >
         <div class="page-header">
             <h1>报单统计
                 <small>用户:周平</small>
@@ -33,29 +33,55 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="info in infoList">
-            <td>{{info.no}}</td>
-            <td>{{info.name}}</td>
-            <td>{{info.money[last3Months[0]]}}</td>
-            <td>{{info.money[last3Months[1]]}}</td>
-            <td>{{info.money[last3Months[2]]}}</td>
-            <td><span class="glyphicon glyphicon-trash" aria-hidden="true" ng-click="delCard(info)" style="font-size:3em;"></span></td>
-        </tr>
-        <!--<tr class="success">-->
-        <!--<td>产品2</td>-->
-        <!--<td>10/11/2013</td>-->
-        <!--<td>发货中</td></tr>-->
-        <!--<tr class="warning">-->
-        <!--<td>产品3</td>-->
-        <!--<td>20/10/2013</td>-->
-        <!--<td>待确认</td></tr>-->
-        <!--<tr class="danger">-->
-        <!--<td>产品4</td>-->
-        <!--<td>20/10/2013</td>-->
-        <!--<td>已退货</td></tr>-->
+            <tr ng-repeat="info in infoList">
+                <td>{{info.no}}</td>
+                <td>{{info.name}}</td>
+                <td>{{info.money[last3Months[0]]}}</td>
+                <td>{{info.money[last3Months[1]]}}</td>
+                <td>{{info.money[last3Months[2]]}}</td>
+                <td><span class="glyphicon glyphicon-trash" aria-hidden="true" ng-click="delCard(info)" style="font-size:3em;"></span></td>
+            </tr>
         </tbody>
     </table>
     <button type="button" class="btn btn-success btn-lg" onclick="addCard()" style="font-size: 2em;width:50%;height:2em">添加卡号</button>
+    <br>
+    <br>
+    状态过滤:
+    <select ng-init="customerState = '1'" ng-model="customerState">
+        <option value="1">即将退出</option>
+        <option value="0">正常</option>
+        <option value="3">已退出</option>
+        <option value="">全部</option>
+    </select>
+    <table class="table table-striped" ng-repeat="info in infoList" ng-if="info.customers">
+        <thead>
+
+        <tr>
+            <th colspan="4">
+                <div class="page-header">
+                    <h1>{{info.name}} 的 客户信息
+                        <small>客户数量: {{info.customers.count}}</small>
+                    </h1>
+                </div>
+            </th>
+        </tr>
+
+        <tr>
+            <th>姓名</th>
+            <th>等级</th>
+            <th>状态</th>
+            <th>卡号</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="customer in info.customers.list|filter:stateFilter" style="{{customer.user_status==1?'color:red':''}}{{customer.user_status==3?'color:gray':''}}">
+            <td>{{customer.mname}}</td>
+            <td>{{customer.rank}}级</td>
+            <td >{{customer.user_status_text||"正常"}}</td>
+            <td>{{customer.mcode}}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 
@@ -82,6 +108,9 @@
                 });
             }
         }
+        $scope.stateFilter = function (customer) {
+            return $scope.customerState==='' || $scope.customerState===customer.user_status;
+        };
     });
 
     function addCard() {
