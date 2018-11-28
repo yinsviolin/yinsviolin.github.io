@@ -47,11 +47,11 @@
     <br>
     <br>
     状态过滤:
-    <select ng-init="customerState = '1'" ng-model="customerState">
+    <select ng-init="customerState = ''" ng-model="customerState">
+        <option value="">全部</option>
         <option value="1">即将退出</option>
         <option value="0">正常</option>
         <option value="3">已退出</option>
-        <option value="">全部</option>
     </select>
     <table class="table table-striped" ng-repeat="info in infoList" ng-if="info.customers">
         <thead>
